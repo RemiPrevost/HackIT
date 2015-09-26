@@ -63,4 +63,8 @@ public class GameController : MonoBehaviour {
 		Vector3 relativePos = toPosition - fromPosition;
 		itemFrom.Shoot (Quaternion.LookRotation(relativePos));
 	}
+
+	public void onShotItem(GameObject itemShot) {
+		print("Game Controller : item shot");
+	}
 }
