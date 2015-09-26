@@ -43,10 +43,10 @@ public class GameController : MonoBehaviour {
 	public SelectionManager selectionManager;
 
 	void Start() {
-		items[0] = Instantiate (itemPrefab, new Vector3(9.63F,0.0F,-10.41F), transform.rotation) as GameObject;
-		items[1] = Instantiate (itemPrefab, new Vector3(-12.76F,0.0F,-10.41F), transform.rotation) as GameObject;
-		items[2] = Instantiate (itemPrefab, new Vector3(0F,0.0F,12F), transform.rotation) as GameObject;
-		items[3] = Instantiate (itemPrefab, new Vector3(0F,0F,0F), transform.rotation) as GameObject;
+		items[0] = Instantiate (itemPrefab, new Vector3(9.63F,0.5F,-10.41F), transform.rotation) as GameObject;
+		items[1] = Instantiate (itemPrefab, new Vector3(-12.76F,0.5F,-10.41F), transform.rotation) as GameObject;
+		items[2] = Instantiate (itemPrefab, new Vector3(0F,0.5F,12F), transform.rotation) as GameObject;
+		items[3] = Instantiate (itemPrefab, new Vector3(0F,0.5F,0F), transform.rotation) as GameObject;
 	}
 
 	public void onItemSelect(ItemController itemController) {
@@ -58,6 +58,11 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void selectionValidated(ItemController itemFrom, ItemController itemTo) {
+		if (this.isInvertNecessary (itemFrom, itemTo)) {
+			ItemController itemTemp = itemFrom;
+			itemFrom = itemTo;
+			itemTo = itemTemp;
+		}
 		Vector3 fromPosition = itemFrom.gameObject.transform.position;
 		Vector3 toPosition = itemTo.gameObject.transform.position;
 		Vector3 relativePos = toPosition - fromPosition;
@@ -66,5 +71,21 @@ public class GameController : MonoBehaviour {
 
 	public void onShotItem(GameObject itemShot) {
 		print("Game Controller : item shot");
+	}
+
+	private bool isInvertNecessary(ItemController itemFrom, ItemController itemTo) {
+		return (isPlayer (itemFrom) && isEnemy (itemTo)) || isNeutral (itemFrom);  
+	}
+
+	private bool isPlayer(ItemController item) {
+		return item.owner == 1;
+	}
+
+	private bool isEnemy(ItemController item) {
+		return item.owner != 0 && item.owner != 1;
+	}
+
+	private bool isNeutral(ItemController item) {
+		return item.owner == 0;
 	}
 }

@@ -11,10 +11,11 @@ public class ItemController : MonoBehaviour {
 	public GameObject pedestal;
 	public GameObject gameObjectSpotlightTop;
 	public GameObject gameObjectSpotlightFace;
-	private bool focused = false;
 	public GameObject shot;
 	public Transform shotSpawn;
-	public GameController gameController;
+
+	private GameController gameController;
+	private bool focused = false;
 
 	void Start() {
 		gameController = GameController.getGameController();
@@ -29,7 +30,8 @@ public class ItemController : MonoBehaviour {
 	}
 
 	public void Shoot(Quaternion quaternion) {
-		Instantiate (shot, shotSpawn.position, quaternion);
+		GameObject shot = (GameObject) Instantiate (this.shot, shotSpawn.position, quaternion);
+		shot.SendMessage ("SetFromOwner", this.owner);
 	}
 
 	public int GetNrj() {
@@ -80,18 +82,19 @@ public class ItemController : MonoBehaviour {
 		UpdateColor ();
 	}
 
-	void UpdateScore() {
-		nrjText.text = "" + nrj;
-	}
 
-	void UpdateColor() {
-		Color new_color = GameController.getColorOfPlayer (owner);
-		item.GetComponent<Renderer>().material.color = new_color;
-	}
 
 
 	/********************************/
 	/*       PRIVATE FUNCTIONS      */
 	/********************************/
 
+	private void UpdateScore() {
+		nrjText.text = "" + nrj;
+	}
+	
+	private void UpdateColor() {
+		Color new_color = GameController.getColorOfPlayer (owner);
+		item.GetComponent<Renderer>().material.color = new_color;
+	}
 }
