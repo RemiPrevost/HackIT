@@ -12,7 +12,6 @@ public class ShotController : MonoBehaviour {
 	}
 
 	void SetFromOwner(int owner) {
-		print ("shot received owner : " + owner);
 		this.fromOwner = owner;
 		this.UpdateColor ();
 	}

@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class ItemController : MonoBehaviour {
-	
+
+	private int id;
 	public int nrj;
 	public int nrjMax;
 	public int owner;
@@ -13,12 +14,14 @@ public class ItemController : MonoBehaviour {
 	public GameObject gameObjectSpotlightFace;
 	public GameObject shot;
 	public Transform shotSpawn;
+	public float waveWait;
 
 	private GameController gameController;
 	private bool focused = false;
 
 	void Start() {
 		gameController = GameController.getGameController();
+		UpdateColor ();
 	}
 
 	void OnMouseUpAsButton() {
@@ -29,9 +32,21 @@ public class ItemController : MonoBehaviour {
 		}
 	}
 
-	public void Shoot(Quaternion quaternion) {
+	public void StartShootingWave(Quaternion quaternion) {
+		StartCoroutine (ShootingWave (quaternion));
+	}
+
+	private IEnumerator ShootingWave(Quaternion quaternion) {
+		while (nrj > 0) {
+			Shoot(quaternion);
+			yield return new WaitForSeconds (waveWait);
+		}
+	}
+
+	private void Shoot(Quaternion quaternion) {
 		GameObject shot = (GameObject) Instantiate (this.shot, shotSpawn.position, quaternion);
 		shot.SendMessage ("SetFromOwner", this.owner);
+		this.AlterNrjBy (-1);
 	}
 
 	public int GetNrj() {
@@ -50,6 +65,10 @@ public class ItemController : MonoBehaviour {
 			}
 
 			this.UpdateScore ();
+
+			if (nrj == 0) {
+				gameController.onZeroNrj(this);
+			}
 		}
 	}
 
@@ -76,15 +95,20 @@ public class ItemController : MonoBehaviour {
 
 		this.focused = false;
 	}
-	
-	void Update () {
-		UpdateScore ();
-		UpdateColor ();
+
+	public void SetId(int id) {
+		this.id = id;
 	}
 
+	public int GetId() {
+		return this.id;
+	}
 
-
-
+	public void SetOwner(int newOwner) {
+		this.owner = newOwner;
+		this.UpdateColor ();
+	}
+	
 	/********************************/
 	/*       PRIVATE FUNCTIONS      */
 	/********************************/
