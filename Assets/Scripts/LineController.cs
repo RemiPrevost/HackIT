@@ -32,7 +32,7 @@ public class LineController : MonoBehaviour {
 	}
 
 	public void ComputeConstants() {
-		this.a = (startPoint.x - endPoint.x)/(startPoint.z-endPoint.z);
+		this.a = (startPoint.z-endPoint.z)/(startPoint.x - endPoint.x);
 		this.b = startPoint.z - startPoint.x * this.a;
 	}
 	

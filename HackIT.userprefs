@@ -1,19 +1,43 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\DragDropManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameController.cs" Line="117" Column="59" />
-      <File FileName="Assets\Scripts\ItemController.cs" Line="25" Column="3" />
-      <File FileName="Assets\Scripts\ShotController.cs" Line="14" Column="32" />
-      <File FileName="Assets\Scripts\DestroyByContact.cs" Line="18" Column="4" />
-      <File FileName="Assets\Scripts\LineController.cs" Line="27" Column="32" />
-      <File FileName="Assets\Scripts\DragDropManager.cs" Line="25" Column="44" />
+      <File FileName="Assets\Scripts\SelectionManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ItemController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ShotController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DestroyByContact.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LineController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DragDropManager.cs" Line="58" Column="33" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>lineController.startPoint</Value>
+          <Value>lineController.endPoint</Value>
+          <Value>xCommon</Value>
+          <Value>lineController.startPoint.x - lineController.endPoint.x</Value>
+          <Value>Mathf.Abs(xCommon)</Value>
+          <Value>Mathf.Abs(lineController.startPoint.z - lineController.endPoint.z)</Value>
+          <Value>(Mathf.Abs(upPosition.x - downPosition.x)</Value>
+          <Value>Mathf.Abs(zCommon)</Value>
+          <Value>(Mathf.Abs(upPosition.x - downPosition.x)</Value>
+          <Value>(Mathf.Abs(upPosition.z - downPosition.z)</Value>
+          <Value>(Mathf.Abs(upPosition.x - downPosition.x) &gt;= Mathf.Abs(xCommon)</Value>
+          <Value>(Mathf.Abs(upPosition.z - downPosition.z) &gt;= Mathf.Abs(zCommon))</Value>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint enabled="false" file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\DragDropManager.cs" line="37" />
-      <Breakpoint enabled="false" file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\DragDropManager.cs" line="46" />
+      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\DragDropManager.cs" line="49" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -4,6 +4,7 @@ using System.Collections;
 public class DragDropManager : MonoBehaviour {
 
 	private Vector3 downPosition;
+	private Vector3 upPosition;
 	private GameObject[,] lines;
 	private GameController gameController;
 
@@ -15,39 +16,61 @@ public class DragDropManager : MonoBehaviour {
 		this.lines = lines;
 	}
 
-	void OnMouseDown() {
-		downPosition = Input.mousePosition;
+	void Update() {
+
+		if (Input.GetMouseButtonDown(0)) {
+			SetEventPosition(out downPosition);
+			print ("down");
+		}
+
+		if (Input.GetMouseButtonUp(0)) {
+			SetEventPosition(out upPosition);
+			if ((downPosition == null) || (upPosition == null)) {
+				return;
+			}
+			ComputeCutLines();
+			print("up");
+		}
 	}
-	
-	void OnMouseUp() {
-		Vector3 upPosition = Input.mousePosition;
+
+	private void SetEventPosition(out Vector3 position) {
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+		Collider collider = gameObject.GetComponent<Collider>();
+		if (collider.Raycast (ray, out hit, 100.0F)) {
+			position = hit.point;
+		} else {
+			position = new Vector3();
+		}
+	}
+
+	private void ComputeCutLines() {
 		LineController lineController;
-		float aCut = (upPosition.x - downPosition.x) / (upPosition.y - downPosition.y);
-		float bCut = upPosition.y - aCut * upPosition.x;
+		float aCut = (upPosition.z - downPosition.z) / (upPosition.x - downPosition.x);
+		float bCut = upPosition.z - aCut * upPosition.x;
 		float xCommon, zCommon;
-	
+		
 		foreach (GameObject line in lines) {
 			if (line != null) {
-				print ("Not null");
 				lineController = line.GetComponent<LineController>();
+				lineController.Deactivate();
 				if (aCut != lineController.a) {
-					print ("Not parallel");
-					xCommon = (lineController.b - bCut)/(lineController.a - aCut);
+					xCommon = (lineController.b - bCut)/(aCut - lineController.a);
 					zCommon = aCut * xCommon + bCut;
-					if ((xCommon < lineController.startPoint.x 
-					     && xCommon > lineController.endPoint.x)
-					    || (xCommon < lineController.endPoint.x 
-					    && xCommon > lineController.startPoint.x)) {
-						print ("x in scope");
-						if ((zCommon < lineController.startPoint.z 
-						     && zCommon > lineController.endPoint.z)
-						    || (zCommon < lineController.endPoint.z 
-						    && zCommon > lineController.startPoint.z)) {
-							print ("Cut line");
+					if ((Mathf.Abs(lineController.startPoint.x - lineController.endPoint.x) >= Mathf.Abs(xCommon)) 
+					    &&
+					    (Mathf.Abs(lineController.startPoint.z - lineController.endPoint.z) >= Mathf.Abs(zCommon))) {
+						print("On the line");
+						if ((Mathf.Abs(upPosition.x - downPosition.x) >= Mathf.Abs(xCommon)) 
+						    &&
+						    (Mathf.Abs(upPosition.z - downPosition.z) >= Mathf.Abs(zCommon))) {
+							print ("cut");
+							lineController.Activate();
 						}
 					}
 				}
 			}
 		}
 	}
+
 }
