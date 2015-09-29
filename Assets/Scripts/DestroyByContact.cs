@@ -21,7 +21,8 @@ public class DestroyByContact : MonoBehaviour {
 			count++;
 			return;
 		}
-		gameController.onShotItem (other.gameObject);
+		gameController.onShotItem (other.gameObject.GetComponent<ItemController>(),
+		                           gameObject.GetComponent<ShotController>().fromOwner);
 		Destroy(gameObject);
 	}
 }

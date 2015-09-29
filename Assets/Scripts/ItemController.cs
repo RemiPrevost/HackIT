@@ -25,6 +25,7 @@ public class ItemController : MonoBehaviour {
 	void Start() {
 		gameController = GameController.getGameController();
 		UpdateColor ();
+		UpdateScore ();
 	}
 
 	void OnMouseUpAsButton() {
@@ -77,14 +78,14 @@ public class ItemController : MonoBehaviour {
 	private void Shoot(Quaternion quaternion) {
 		GameObject shot = (GameObject) Instantiate (this.shot, shotSpawn.position, quaternion);
 		shot.SendMessage ("SetFromOwner", this.owner);
-		this.AlterNrjBy (-1);
+		this.AlterNrjBy (-1, -1);
 	}
 
 	public int GetNrj() {
 		return this.nrj;
 	}
 
-	public void AlterNrjBy(int value) {
+	public void AlterNrjBy(int value, int shooterOwnerCode) {
 		int before = nrj;
 
 		if (value != 0) {
@@ -106,6 +107,9 @@ public class ItemController : MonoBehaviour {
 			}
 			else if (before == nrjMax) {
 				gameController.onNoMoreFullNrj(this);
+			}
+			if (before == 0) {
+				gameController.OnItemAcquiredBy(this,shooterOwnerCode);
 			}
 		}
 	}

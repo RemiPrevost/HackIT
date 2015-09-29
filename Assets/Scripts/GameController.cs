@@ -82,11 +82,22 @@ public class GameController : MonoBehaviour {
 		lines [itemTo.GetId (), itemFrom.GetId()].SendMessage ("Activate");
 	}
 
-	public void onShotItem(GameObject itemShot) {
-		itemShot.SendMessage ("AlterNrjBy", 1);
+	public void onShotItem(ItemController itemShot, int shooter) {
+		itemShot.AlterNrjBy (1, shooter);
 	}
 
 	public void onZeroNrj(ItemController item) {
+		LineController lineController;
+
+		foreach (GameObject line in lines) {
+			if (line != null) {
+				lineController = line.GetComponent<LineController>();
+				if (lineController.GetOwnerIn() == item.GetId()) {
+					lineController.Deactivate();
+				}
+			}
+		}
+
 		item.SetOwner (0);
 	}
 
@@ -108,6 +119,10 @@ public class GameController : MonoBehaviour {
 				itemController.ResumeShootingAt(noFullItem.GetId());
 			}
 		}
+	}
+
+	public void OnItemAcquiredBy(ItemController itemController, int newOwner) {
+		itemController.SetOwner (newOwner);
 	}
 
 	public GameObject[,] GetLines() {
@@ -141,7 +156,7 @@ public class GameController : MonoBehaviour {
 
 		for (int i = 0; i < this.items.Length; i++) {
 			for (int j = 0; j < this.items.Length; j++) {
-				if (i < j) {
+				if (i != j) {
 					lines[i,j] = Instantiate (this.line, transform.position, transform.rotation) as GameObject;
 					lines[i,j].GetComponent<LineRenderer>().SetPosition(0, new Vector3(this.items[i].transform.position.x,0,this.items[i].transform.position.z));
 					lines[i,j].GetComponent<LineRenderer>().SetPosition(1, new Vector3(this.items[j].transform.position.x,0,this.items[j].transform.position.z));
@@ -153,6 +168,9 @@ public class GameController : MonoBehaviour {
 					lines[i,j].SendMessage("SetEndPoint",new Vector3(this.items[j].transform.position.x,0,this.items[j].transform.position.z));
 					lines[i,j].SendMessage("ComputeConstants");
 					lines[j,i] = lines[i,j];
+				}
+				else {
+					lines[i,j] = null;
 				}
 			}
 		}
