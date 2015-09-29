@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
@@ -68,10 +69,15 @@ public class GameController : MonoBehaviour {
 			itemFrom = itemTo;
 			itemTo = itemTemp;
 		}
+		if ((itemFrom.owner == itemTo.owner) && itemTo.IsShootingAt(itemFrom.GetId())) {
+			itemTo.StopShootingAt(itemFrom.GetId());
+		}
+
 		Vector3 fromPosition = itemFrom.gameObject.transform.position;
 		Vector3 toPosition = itemTo.gameObject.transform.position;
 		Vector3 relativePos = toPosition - fromPosition;
-		itemFrom.StartShootingWave (Quaternion.LookRotation(relativePos));
+		lines [itemFrom.GetId (), itemTo.GetId ()].SendMessage ("Activate");
+		itemFrom.StartShootingAt (Quaternion.LookRotation(relativePos), itemTo.GetId());
 
 		lines [itemTo.GetId (), itemFrom.GetId()].SendMessage ("Activate");
 	}
@@ -84,9 +90,46 @@ public class GameController : MonoBehaviour {
 		item.SetOwner (0);
 	}
 
+	public void onFullNrj(ItemController fullItem) {
+		ItemController itemController;
+		foreach (GameObject item in items) {
+			itemController = item.GetComponent<ItemController>();
+			if (!itemController.Equals(fullItem)) {
+				itemController.SuspendShootingAt(fullItem.GetId());
+			}
+		}
+	}
+
+	public void onNoMoreFullNrj(ItemController noFullItem) {
+		ItemController itemController;
+		foreach (GameObject item in items) {
+			itemController = item.GetComponent<ItemController>();
+			if (!itemController.Equals(noFullItem)) {
+				itemController.ResumeShootingAt(noFullItem.GetId());
+			}
+		}
+	}
+
 	public GameObject[,] GetLines() {
 		print (lines);
 		return this.lines;
+	}
+
+	public void onCutLines(List<Indexes> cutLines) {
+		ItemController itemController1, itemController2;
+		foreach (Indexes line in cutLines) {
+			itemController1 = items[line.i].GetComponent<ItemController>();
+			itemController2 = items[line.j].GetComponent<ItemController>();
+
+			if ((itemController1.owner == 1) && itemController1.IsShootingAt(itemController2.GetId())) {
+				itemController1.StopShootingAt(itemController2.GetId());
+				lines [line.i, line.j].SendMessage ("Deactivate");
+			}
+			else if ((itemController1.owner == 1) && itemController2.IsShootingAt(itemController1.GetId())) {
+				itemController2.StopShootingAt(itemController1.GetId());
+				lines [line.i, line.j].SendMessage ("Deactivate");
+			}
+		}
 	}
 
 	/********************************/

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DragDropManager : MonoBehaviour {
 
@@ -20,16 +21,14 @@ public class DragDropManager : MonoBehaviour {
 
 		if (Input.GetMouseButtonDown(0)) {
 			SetEventPosition(out downPosition);
-			print ("down");
 		}
 
 		if (Input.GetMouseButtonUp(0)) {
 			SetEventPosition(out upPosition);
-			if ((downPosition == null) || (upPosition == null)) {
+			if (upPosition == downPosition) {
 				return;
 			}
 			ComputeCutLines();
-			print("up");
 		}
 	}
 
@@ -45,32 +44,32 @@ public class DragDropManager : MonoBehaviour {
 	}
 
 	private void ComputeCutLines() {
+		List<Indexes> cutLines = new List<Indexes>();
 		LineController lineController;
 		float aCut = (upPosition.z - downPosition.z) / (upPosition.x - downPosition.x);
 		float bCut = upPosition.z - aCut * upPosition.x;
-		float xCommon, zCommon;
+		float xCommon;
 		
-		foreach (GameObject line in lines) {
-			if (line != null) {
-				lineController = line.GetComponent<LineController>();
-				lineController.Deactivate();
-				if (aCut != lineController.a) {
-					xCommon = (lineController.b - bCut)/(aCut - lineController.a);
-					zCommon = aCut * xCommon + bCut;
-					if ((Mathf.Abs(lineController.startPoint.x - lineController.endPoint.x) >= Mathf.Abs(xCommon)) 
-					    &&
-					    (Mathf.Abs(lineController.startPoint.z - lineController.endPoint.z) >= Mathf.Abs(zCommon))) {
-						print("On the line");
-						if ((Mathf.Abs(upPosition.x - downPosition.x) >= Mathf.Abs(xCommon)) 
+		for (int i = 0; i < lines.GetLength(0); i++) {
+			for (int j = 0; j < lines.GetLength(0); j++) {
+				if (i < j) {
+					lineController = lines[i,j].GetComponent<LineController>();
+					if (lineController.a == Mathf.Infinity || aCut == Mathf.Infinity || aCut != lineController.a) {
+						xCommon = (lineController.b - bCut)/(aCut - lineController.a);
+						if (xCommon < Mathf.Max(lineController.startPoint.x, lineController.endPoint.x)
 						    &&
-						    (Mathf.Abs(upPosition.z - downPosition.z) >= Mathf.Abs(zCommon))) {
-							print ("cut");
-							lineController.Activate();
+						    xCommon > Mathf.Min(lineController.startPoint.x, lineController.endPoint.x)
+						    &&
+						    xCommon < Mathf.Max(upPosition.x, downPosition.x)
+						    &&
+						    xCommon > Mathf.Min(upPosition.x, downPosition.x)) {
+							cutLines.Add(new Indexes(i,j));
 						}
 					}
 				}
 			}
 		}
+		gameController.onCutLines (cutLines);
 	}
 
 }

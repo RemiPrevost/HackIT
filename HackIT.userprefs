@@ -1,43 +1,44 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\DragDropManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameController.cs">
     <Files>
-      <File FileName="Assets\Scripts\SelectionManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ItemController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ShotController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DestroyByContact.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LineController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DragDropManager.cs" Line="58" Column="33" />
+      <File FileName="Assets\Scripts\DragDropManager.cs" Line="76" Column="1" />
+      <File FileName="Assets\Scripts\ItemController.cs" Line="162" Column="2" />
+      <File FileName="Assets\Scripts\SelectionManager.cs" Line="57" Column="1" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="106" Column="10" />
+      <File FileName="Assets\Scripts\ShotController.cs" Line="24" Column="1" />
+      <File FileName="Assets\Scripts\DestroyByContact.cs" Line="28" Column="1" />
+      <File FileName="Assets\Scripts\LineController.cs" Line="47" Column="1" />
+      <File FileName="Assets\Scripts\Indexes.cs" Line="12" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Scripts" expanded="True">
+              <Node name="GameController.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
       </Pad>
       <Pad Id="ClassPad">
-        <State expanded="True" selected="True" />
+        <State selected="True" />
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State>
           <Value>lineController.startPoint</Value>
           <Value>lineController.endPoint</Value>
-          <Value>xCommon</Value>
-          <Value>lineController.startPoint.x - lineController.endPoint.x</Value>
-          <Value>Mathf.Abs(xCommon)</Value>
-          <Value>Mathf.Abs(lineController.startPoint.z - lineController.endPoint.z)</Value>
-          <Value>(Mathf.Abs(upPosition.x - downPosition.x)</Value>
-          <Value>Mathf.Abs(zCommon)</Value>
-          <Value>(Mathf.Abs(upPosition.x - downPosition.x)</Value>
-          <Value>(Mathf.Abs(upPosition.z - downPosition.z)</Value>
-          <Value>(Mathf.Abs(upPosition.x - downPosition.x) &gt;= Mathf.Abs(xCommon)</Value>
-          <Value>(Mathf.Abs(upPosition.z - downPosition.z) &gt;= Mathf.Abs(zCommon))</Value>
+          <Value>upPosition</Value>
+          <Value>downPosition</Value>
+          <Value>lineController.a</Value>
+          <Value>lineController.b</Value>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\DragDropManager.cs" line="49" />
+      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\ItemController.cs" line="108" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

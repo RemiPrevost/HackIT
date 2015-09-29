@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ItemController : MonoBehaviour {
 
@@ -18,6 +19,8 @@ public class ItemController : MonoBehaviour {
 
 	private GameController gameController;
 	private bool focused = false;
+	private List<int> shots = new List<int>();
+	private List<int> pendingShots = new List<int>();
 
 	void Start() {
 		gameController = GameController.getGameController();
@@ -32,13 +35,41 @@ public class ItemController : MonoBehaviour {
 		}
 	}
 
-	public void StartShootingWave(Quaternion quaternion) {
-		StartCoroutine (ShootingWave (quaternion));
+	public bool IsShootingAt(int target) {
+		return shots.Contains (target);
+	}
+	
+	public bool SuspendShootingAt(int target) {
+		if (IsShootingAt (target) && !pendingShots.Contains(target)) {
+			pendingShots.Add (target);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	private IEnumerator ShootingWave(Quaternion quaternion) {
-		while (nrj > 0) {
-			Shoot(quaternion);
+	public bool ResumeShootingAt(int target) {
+		return pendingShots.Remove(target);
+	}
+
+	public bool StopShootingAt(int target) {
+		return shots.Remove (target) && pendingShots.Remove(target);
+	}
+
+	public bool StartShootingAt(Quaternion quaternion, int target) {
+		if (!shots.Contains (target)) {
+			shots.Add(target);
+			StartCoroutine (ShootingWave (quaternion,target));
+			return true;
+		}
+		return false;
+	}
+
+	private IEnumerator ShootingWave(Quaternion quaternion, int target) {
+		while (nrj > 0 && shots.Contains(target)) {
+			if( !pendingShots.Contains(target)) {
+				Shoot(quaternion);
+			}
 			yield return new WaitForSeconds (waveWait);
 		}
 	}
@@ -54,6 +85,7 @@ public class ItemController : MonoBehaviour {
 	}
 
 	public void AlterNrjBy(int value) {
+		int before = nrj;
 
 		if (value != 0) {
 			this.nrj += value;
@@ -68,6 +100,12 @@ public class ItemController : MonoBehaviour {
 
 			if (nrj == 0) {
 				gameController.onZeroNrj(this);
+			}
+			else if (nrj == nrjMax) {
+				gameController.onFullNrj(this);
+			}
+			else if (before == nrjMax) {
+				gameController.onNoMoreFullNrj(this);
 			}
 		}
 	}

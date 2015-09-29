@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\DestroyByContact.cs" />
      <Compile Include="Assets\Scripts\DragDropManager.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\Indexes.cs" />
      <Compile Include="Assets\Scripts\ItemController.cs" />
      <Compile Include="Assets\Scripts\LineController.cs" />
      <Compile Include="Assets\Scripts\SelectionManager.cs" />
