@@ -51,7 +51,9 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\Indexes.cs" />
      <Compile Include="Assets\Scripts\ItemController.cs" />
+     <Compile Include="Assets\Scripts\ItemsCollection.cs" />
      <Compile Include="Assets\Scripts\LineController.cs" />
+     <Compile Include="Assets\Scripts\Map.cs" />
      <Compile Include="Assets\Scripts\SelectionManager.cs" />
      <Compile Include="Assets\Scripts\ShotController.cs" />
  <Reference Include="UnityEngine.UI">

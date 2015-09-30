@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
-	/********************************/
-	/* STATIC FUNCTIONS & VARIABLES */
-	/********************************/
+	/**********************************************************/
+	/*************** STATIC METHODS & VARIABLES ***************/
+
 
 	public static GameController getGameController() {
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
@@ -34,24 +34,21 @@ public class GameController : MonoBehaviour {
 	};
 
 
-	/********************************/
-	/*          ATTRIBUTES          */
-	/********************************/
+	/**********************************************************/
+	/*********************** ATTRIBUTES ***********************/
 
 	public GameObject itemPrefab;
 	public GameObject line;
 	public SelectionManager selectionManager;
 	public DragDropManager dragDropManager;
 
+	private ItemsCollection itemCollection;
 	private GameObject[] items;
 	private GameObject[,] lines;
 
 
 	void Start() {
-		items = GameObject.FindGameObjectsWithTag("Item");
-		for (int i = 0; i < items.Length; i++) {
-			items[i].SendMessage("SetId",i);
-		}
+		itemCollection = new ItemsCollection();
 		this.DrawLines ();
 	}
 
@@ -102,9 +99,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void onFullNrj(ItemController fullItem) {
-		ItemController itemController;
-		foreach (GameObject item in items) {
-			itemController = item.GetComponent<ItemController>();
+		foreach (ItemController itemController in itemCollection.GetAllItemsController()) {
 			if (!itemController.Equals(fullItem)) {
 				itemController.SuspendShootingAt(fullItem.GetId());
 			}
@@ -112,9 +107,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void onNoMoreFullNrj(ItemController noFullItem) {
-		ItemController itemController;
-		foreach (GameObject item in items) {
-			itemController = item.GetComponent<ItemController>();
+		foreach (ItemController itemController in itemCollection.GetAllItemsController()) {
 			if (!itemController.Equals(noFullItem)) {
 				itemController.ResumeShootingAt(noFullItem.GetId());
 			}
@@ -133,8 +126,8 @@ public class GameController : MonoBehaviour {
 	public void onCutLines(List<Indexes> cutLines) {
 		ItemController itemController1, itemController2;
 		foreach (Indexes line in cutLines) {
-			itemController1 = items[line.i].GetComponent<ItemController>();
-			itemController2 = items[line.j].GetComponent<ItemController>();
+			itemController1 = itemCollection.GetItemController(line.i);
+			itemController2 = itemCollection.GetItemController(line.j);
 
 			if ((itemController1.owner == 1) && itemController1.IsShootingAt(itemController2.GetId())) {
 				itemController1.StopShootingAt(itemController2.GetId());
@@ -147,25 +140,50 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	/********************************/
-	/*       PRIVATES METHODS       */
-	/********************************/ 
+	/**********************************************************/
+	/********************* PRIVATE METHODS ********************/
 
 	private void DrawLines() {
-		lines = new GameObject[this.items.Length,this.items.Length];
+		int itemsCollectionSize = itemCollection.GetCollectionSize();
+		lines = new GameObject[itemsCollectionSize,itemsCollectionSize];
+		GameObject itemGameObjectI, itemGameObjectJ;
 
-		for (int i = 0; i < this.items.Length; i++) {
-			for (int j = 0; j < this.items.Length; j++) {
+		for (int i = 0; i < itemsCollectionSize; i++) {
+			for (int j = 0; j < itemsCollectionSize; j++) {
 				if (i != j) {
+					itemGameObjectI = itemCollection.GetItemObject(i);
+					itemGameObjectJ = itemCollection.GetItemObject(j);
 					lines[i,j] = Instantiate (this.line, transform.position, transform.rotation) as GameObject;
-					lines[i,j].GetComponent<LineRenderer>().SetPosition(0, new Vector3(this.items[i].transform.position.x,0,this.items[i].transform.position.z));
-					lines[i,j].GetComponent<LineRenderer>().SetPosition(1, new Vector3(this.items[j].transform.position.x,0,this.items[j].transform.position.z));
+					lines[i,j].GetComponent<LineRenderer>().SetPosition(0, 
+					    new Vector3(
+							itemGameObjectI.transform.position.x,
+							0,
+							itemGameObjectI.transform.position.z
+						)
+					);
+					lines[i,j].GetComponent<LineRenderer>().SetPosition(1,
+						new Vector3(
+							itemGameObjectJ.transform.position.x,
+					   		0,
+							itemGameObjectJ.transform.position.z
+						)
+					);
 					lines[i,j].GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
 					lines[i,j].SendMessage("Deactivate");
 					lines[i,j].SendMessage("SetOwnerOut",j);
 					lines[i,j].SendMessage("SetOwnerIn",i);
-					lines[i,j].SendMessage("SetStartPoint",new Vector3(this.items[i].transform.position.x,0,this.items[i].transform.position.z));
-					lines[i,j].SendMessage("SetEndPoint",new Vector3(this.items[j].transform.position.x,0,this.items[j].transform.position.z));
+					lines[i,j].SendMessage("SetStartPoint",
+						new Vector3(
+							itemGameObjectI.transform.position.x,
+							0,
+							itemGameObjectI.transform.position.z)
+					);
+					lines[i,j].SendMessage("SetEndPoint",
+						new Vector3(
+							itemGameObjectJ.transform.position.x,
+							0,
+							itemGameObjectJ.transform.position.z)
+					);
 					lines[i,j].SendMessage("ComputeConstants");
 					lines[j,i] = lines[i,j];
 				}
