@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class ItemController : MonoBehaviour {
 
+	/**********************************************************/
+	/*********************** ATTRIBUTES ***********************/
+
 	private int id;
 	public int nrj;
 	public int nrjMax;
@@ -22,12 +25,18 @@ public class ItemController : MonoBehaviour {
 	private List<int> shots = new List<int>();
 	private List<int> pendingShots = new List<int>();
 
+	/**********************************************************/
+	/********************* PUBLIC METHODS *********************/
+
 	void Start() {
 		gameController = GameController.getGameController();
 		UpdateColor ();
 		UpdateScore ();
 	}
 
+	/**
+	 * Warns that the button has been selected or deselected
+	 */
 	void OnMouseUpAsButton() {
 		if (this.focused) {
 			gameController.onItemDeselect(this);
@@ -36,10 +45,20 @@ public class ItemController : MonoBehaviour {
 		}
 	}
 
+	/**
+	 * Returns true if the item is currently shooting at target
+	 * param target: the potential target
+	 * returns {bool}
+	 */
 	public bool IsShootingAt(int target) {
 		return shots.Contains (target);
 	}
-	
+
+	/**
+	 * Suspends the shooting wave to the target. Returns true if succes
+	 * param target: the target
+	 * return {bool}
+	 */
 	public bool SuspendShootingAt(int target) {
 		if (IsShootingAt (target) && !pendingShots.Contains(target)) {
 			pendingShots.Add (target);
@@ -49,14 +68,31 @@ public class ItemController : MonoBehaviour {
 		}
 	}
 
+	/**
+	 * Resumes the shooting wave to the target. Returns true if succes
+	 * param target: the target
+	 * return {bool}
+	 */
 	public bool ResumeShootingAt(int target) {
 		return pendingShots.Remove(target);
 	}
 
+	/**
+	 * Stops the shooting wave to the target. Returns true if succes
+	 * param target: the target
+	 * return {bool}
+	 */
 	public bool StopShootingAt(int target) {
 		return shots.Remove (target) && pendingShots.Remove(target);
 	}
 
+	/**
+	 * Suspends the shooting wave to the target, in its direction with the quaternion
+	 * parameter. Returns true if succes
+	 * param quaternion: the quaternion for proper rotation to target
+	 * param target: the target
+	 * return {bool}
+	 */
 	public bool StartShootingAt(Quaternion quaternion, int target) {
 		if (!shots.Contains (target)) {
 			shots.Add(target);
@@ -66,6 +102,12 @@ public class ItemController : MonoBehaviour {
 		return false;
 	}
 
+	/**
+	 * Loops for regular shoots to target
+	 * param quaternion: the quaternion for proper rotation to target
+	 * param target: the target
+	 * return {IEnumerator}
+	 */
 	private IEnumerator ShootingWave(Quaternion quaternion, int target) {
 		while (nrj > 0 && shots.Contains(target)) {
 			if( !pendingShots.Contains(target)) {
@@ -75,16 +117,17 @@ public class ItemController : MonoBehaviour {
 		}
 	}
 
-	private void Shoot(Quaternion quaternion) {
-		GameObject shot = (GameObject) Instantiate (this.shot, shotSpawn.position, quaternion);
-		shot.SendMessage ("SetFromOwner", this.owner);
-		this.AlterNrjBy (-1, -1);
-	}
-
 	public int GetNrj() {
 		return this.nrj;
 	}
 
+	/**
+	 * Increases or decreases the nrj by 'value' points. Warns the game controller
+	 * if the nrj drops to 0, recovers from 0, reached fullness or recovers from
+	 * fullness
+	 * param value: the number of altering points
+	 * param shooterOwnerCode: the owner of the shoot 
+	 */
 	public void AlterNrjBy(int value, int shooterOwnerCode) {
 		int before = nrj;
 
@@ -118,6 +161,9 @@ public class ItemController : MonoBehaviour {
 		return this.owner;
 	}
 
+	/**
+	 * Focuses the item by increasing the power of the spotlights
+	 */
 	public void focus() {
 		Light spotlight_top = gameObjectSpotlightTop.GetComponent<Light> ();
 		Light spotlight_face = gameObjectSpotlightFace.GetComponent<Light> ();
@@ -128,6 +174,9 @@ public class ItemController : MonoBehaviour {
 		this.focused = true;
 	}
 
+	/**
+	 * Focuses the item by decreasing the power of the spotlights
+	 */
 	public void blur() {
 		Light spotlight_top = gameObjectSpotlightTop.GetComponent<Light> ();
 		Light spotlight_face = gameObjectSpotlightFace.GetComponent<Light> ();
@@ -151,9 +200,19 @@ public class ItemController : MonoBehaviour {
 		this.UpdateColor ();
 	}
 	
-	/********************************/
-	/*       PRIVATE FUNCTIONS      */
-	/********************************/
+	/**********************************************************/
+	/********************* PRIVATE METHODS ********************/
+
+	/**
+	 * Instantiate a shot in the good direction thanks to the quaternion input.
+	 * Alters the nrj by -1
+	 * param quaternion: the quaternion for rotation to the shot
+	 */
+	private void Shoot(Quaternion quaternion) {
+		GameObject shot = (GameObject) Instantiate (this.shot, shotSpawn.position, quaternion);
+		shot.SendMessage ("SetFromOwner", this.owner);
+		this.AlterNrjBy (-1, -1);
+	}
 
 	private void UpdateScore() {
 		nrjText.text = "" + nrj;

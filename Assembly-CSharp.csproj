@@ -46,16 +46,16 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\DestroyByContact.cs" />
-     <Compile Include="Assets\Scripts\DragDropManager.cs" />
-     <Compile Include="Assets\Scripts\GameController.cs" />
-     <Compile Include="Assets\Scripts\Indexes.cs" />
-     <Compile Include="Assets\Scripts\ItemController.cs" />
-     <Compile Include="Assets\Scripts\ItemsCollection.cs" />
-     <Compile Include="Assets\Scripts\LineController.cs" />
+     <Compile Include="Assets\Scripts\Collections\ItemsCollection.cs" />
+     <Compile Include="Assets\Scripts\Collections\LinesCollection.cs" />
+     <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\ItemController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\LineController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\ShotController.cs" />
+     <Compile Include="Assets\Scripts\Managers\DragDropManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\SelectionManager.cs" />
      <Compile Include="Assets\Scripts\Map.cs" />
-     <Compile Include="Assets\Scripts\SelectionManager.cs" />
-     <Compile Include="Assets\Scripts\ShotController.cs" />
+     <Compile Include="Assets\Scripts\Utils\Indexes.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

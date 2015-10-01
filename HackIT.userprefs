@@ -1,23 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Collections\ItemsCollection.cs">
     <Files>
-      <File FileName="Assets\Scripts\DragDropManager.cs" Line="59" Column="1" />
-      <File FileName="Assets\Scripts\ItemController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SelectionManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameController.cs" Line="17" Column="4" />
-      <File FileName="Assets\Scripts\ShotController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DestroyByContact.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LineController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Map.cs" Line="5" Column="2" />
-      <File FileName="Assets\Scripts\ItemsCollection.cs" Line="16" Column="19" />
+      <File FileName="Assets\Scripts\Map.cs" Line="39" Column="5" />
+      <File FileName="Assets\Scripts\Controllers\ShotController.cs" Line="27" Column="38" />
+      <File FileName="Assets\Scripts\Controllers\GameController.cs" Line="8" Column="62" />
+      <File FileName="Assets\Scripts\Controllers\ItemController.cs" Line="218" Column="20" />
+      <File FileName="Assets\Scripts\Collections\ItemsCollection.cs" Line="11" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="GameController.cs" selected="True" />
+              <Node name="Collections" expanded="True">
+                <Node name="ItemsCollection.cs" selected="True" />
+              </Node>
+              <Node name="Controllers" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -27,17 +26,16 @@
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State>
-          <Value>xCommon</Value>
-          <Value>lineController.b</Value>
-          <Value>lineController.a</Value>
-          <Value>lineController.endPoint.z</Value>
-          <Value>lineController.startPoint.z</Value>
+          <Value>map</Value>
+          <Value>map.Length</Value>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\GameController.cs" line="102" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

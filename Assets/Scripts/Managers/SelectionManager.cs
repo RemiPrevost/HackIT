@@ -11,6 +11,10 @@ public class SelectionManager : MonoBehaviour {
 		gameController = GameController.getGameController();
 	}
 
+	/**
+	 * Called when a new item has been selected. Check if an other item
+	 * is also selected and therefore warns the game controller
+	 */
 	public void newSelection(ItemController newItem) {
 		if (busy) {
 			return;
@@ -37,6 +41,9 @@ public class SelectionManager : MonoBehaviour {
 		}
 	}
 
+	/**
+	 * clear the selected items of this class and blur them
+	 */
 	public void deselect(ItemController item) {
 		if (!this.busy) {
 			item.blur ();
@@ -45,8 +52,11 @@ public class SelectionManager : MonoBehaviour {
 		}
 	}
 
+	/**
+	 * Waits for 0.3s before bluring the selected items
+	 */
 	private IEnumerator waitBeforeBlur() {
-		yield return new WaitForSeconds(0.5F);
+		yield return new WaitForSeconds(0.3F);
 		this.item1.blur ();
 		this.item2.blur ();
 		this.item1 = null;
