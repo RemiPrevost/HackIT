@@ -52,6 +52,8 @@
      <Compile Include="Assets\Scripts\Controllers\ItemController.cs" />
      <Compile Include="Assets\Scripts\Controllers\LineController.cs" />
      <Compile Include="Assets\Scripts\Controllers\ShotController.cs" />
+     <Compile Include="Assets\Scripts\IA\IA.cs" />
+     <Compile Include="Assets\Scripts\Managers\ColorController.cs" />
      <Compile Include="Assets\Scripts\Managers\DragDropManager.cs" />
      <Compile Include="Assets\Scripts\Managers\SelectionManager.cs" />
      <Compile Include="Assets\Scripts\Map.cs" />

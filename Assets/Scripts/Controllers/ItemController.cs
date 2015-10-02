@@ -16,7 +16,7 @@ public class ItemController : MonoBehaviour {
 	public GameObject pedestal;
 	public GameObject gameObjectSpotlightTop;
 	public GameObject gameObjectSpotlightFace;
-	public GameObject shot;
+	public GameObject shotPrefab;
 	public Transform shotSpawn;
 	public float waveWait;
 
@@ -32,6 +32,7 @@ public class ItemController : MonoBehaviour {
 		gameController = GameController.getGameController();
 		UpdateColor ();
 		UpdateScore ();
+		blur ();
 	}
 
 	/**
@@ -111,7 +112,7 @@ public class ItemController : MonoBehaviour {
 	private IEnumerator ShootingWave(Quaternion quaternion, int target) {
 		while (nrj > 0 && shots.Contains(target)) {
 			if( !pendingShots.Contains(target)) {
-				Shoot(quaternion);
+				Shoot(quaternion,target);
 			}
 			yield return new WaitForSeconds (waveWait);
 		}
@@ -141,9 +142,12 @@ public class ItemController : MonoBehaviour {
 			}
 
 			this.UpdateScore ();
+			this.UpdateColor();
 
 			if (nrj == 0) {
 				gameController.onZeroNrj(this);
+				pendingShots.Clear();
+				shots.Clear();
 			}
 			else if (nrj == nrjMax) {
 				gameController.onFullNrj(this);
@@ -181,8 +185,8 @@ public class ItemController : MonoBehaviour {
 		Light spotlight_top = gameObjectSpotlightTop.GetComponent<Light> ();
 		Light spotlight_face = gameObjectSpotlightFace.GetComponent<Light> ();
 
-		spotlight_top.intensity = 1.0F;
-		spotlight_face.intensity = 1.0F;
+		spotlight_top.intensity = 3.0F;
+		spotlight_face.intensity = 3.0F;
 
 		this.focused = false;
 	}
@@ -199,7 +203,11 @@ public class ItemController : MonoBehaviour {
 		this.owner = newOwner;
 		this.UpdateColor ();
 	}
-	
+
+	public bool IsFull() {
+		return nrj == nrjMax;
+	}
+
 	/**********************************************************/
 	/********************* PRIVATE METHODS ********************/
 
@@ -208,9 +216,15 @@ public class ItemController : MonoBehaviour {
 	 * Alters the nrj by -1
 	 * param quaternion: the quaternion for rotation to the shot
 	 */
-	private void Shoot(Quaternion quaternion) {
-		GameObject shot = (GameObject) Instantiate (this.shot, shotSpawn.position, quaternion);
-		shot.SendMessage ("SetFromOwner", this.owner);
+	private void Shoot(Quaternion quaternion, int target) {
+		ShotController shot = ((GameObject) Instantiate (this.shotPrefab, shotSpawn.position, quaternion)).GetComponent<ShotController>();
+		ItemController targetController = gameController.GetItemController (target);
+
+		shot.SetFromOwner(this.owner);
+		shot.setToOwner (targetController.owner);
+		shot.SetStartPosition (shotSpawn.position);
+		shot.SetEndPosition (targetController.shotSpawn.position);
+		shot.ComputeDistance ();
 		this.AlterNrjBy (-1, -1);
 	}
 
@@ -219,7 +233,10 @@ public class ItemController : MonoBehaviour {
 	}
 	
 	private void UpdateColor() {
-		Color new_color = GameController.getColorOfPlayer (owner);
-		item.GetComponent<Renderer>().material.color = new_color;
+		Color newColor = ColorController.getColorOfPlayer (owner);
+		float s = Mathf.Sqrt((float)nrj / (float)nrjMax);
+
+		newColor = ColorController.DesaturateColorBy (newColor, s);
+		item.GetComponent<Renderer>().material.color = newColor;
 	}
 }

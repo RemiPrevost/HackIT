@@ -23,16 +23,6 @@ public class GameController : MonoBehaviour {
 		return gameController;
 	}
 
-	public static Color getColorOfPlayer(int player_code) {
-		return color_map [player_code];
-	}
-
-	private static Color[] color_map = new Color[] {
-		Color.white,
-		Color.green,
-		Color.red
-	};
-
 
 	/**********************************************************/
 	/*********************** ATTRIBUTES ***********************/
@@ -45,8 +35,8 @@ public class GameController : MonoBehaviour {
 	private ItemsCollection itemsCollection;
 	private LinesCollection linesCollection;
 	private Map map;
+	private IA ia;
 	private GameObject[] items;
-	private GameObject[,] lines;
 
 
 	void Start() {
@@ -54,6 +44,7 @@ public class GameController : MonoBehaviour {
 		linesCollection = new LinesCollection (itemsCollection);
 		map = new Map (itemsCollection.GetCollectionSize ());
 		this.dragDropManager.SendMessage ("SetLines", this.linesCollection);
+		ia = new IA (itemsCollection, linesCollection, map);
 	}
 
 	public void onItemSelect(ItemController itemController) {
@@ -75,6 +66,12 @@ public class GameController : MonoBehaviour {
 			map.AstopsShootingAtB(itemFrom.GetId(), itemTo.GetId ());
 		}
 
+		if (!itemTo.IsFull()) {
+			MakeAShootAtB (itemFrom, itemTo);
+		}
+	}
+
+	public void MakeAShootAtB(ItemController itemFrom, ItemController itemTo) {
 		Vector3 fromPosition = itemFrom.gameObject.transform.position;
 		Vector3 toPosition = itemTo.gameObject.transform.position;
 		Vector3 relativePos = toPosition - fromPosition;
@@ -89,9 +86,17 @@ public class GameController : MonoBehaviour {
 
 	public void onZeroNrj(ItemController item) {
 		List<int> targetsId = map.AtWhoAIsShootingAt (item.GetId());
+		ItemController targetController;
 
 		foreach (int targetId in targetsId) {
-			linesCollection.GetLineControllerBetween (item.GetId (), targetId).Deactivate();
+			targetController = itemsCollection.GetItemController(targetId);
+			if (targetController.getOwner() == item.getOwner()) {
+				linesCollection.GetLineControllerBetween (item.GetId (), targetId).Deactivate();
+			}
+			else {
+				MakeAShootAtB(targetController, item);
+			}
+
 		}
 
 		map.AstopsShooting (item.GetId ());
@@ -134,11 +139,25 @@ public class GameController : MonoBehaviour {
 				map.AstopsShootingAtB(line.j,line.i);
 				linesCollection.GetLineControllerBetween(line.i,line.j).Deactivate();
 			}
+			else if ((itemController1.owner > 1) && (itemController2.owner == 1) && map.IsAShootingAtB(line.i,line.j)) {
+				itemController1.StopShootingAt(line.j);
+				map.AstopsShootingAtB(line.i,line.j);
+				linesCollection.GetLineControllerBetween(line.i,line.j).Deactivate();
+			}
+			else if ((itemController2.owner > 1) && (itemController1.owner == 1) && map.IsAShootingAtB(line.j,line.i)) {
+				itemController2.StopShootingAt(line.i);
+				map.AstopsShootingAtB(line.j,line.i);
+				linesCollection.GetLineControllerBetween(line.i,line.j).Deactivate();
+			}
 		}
 	}
 
 	public GameObject InstantiateLine() {
 		return Instantiate (linePrefab, transform.position, transform.rotation) as GameObject;
+	}
+
+	public ItemController GetItemController(int id) {
+		return itemsCollection.GetItemController (id);
 	}
 
 	/**********************************************************/

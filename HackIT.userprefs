@@ -1,41 +1,32 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Collections\ItemsCollection.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Controllers\ItemController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Map.cs" Line="39" Column="5" />
-      <File FileName="Assets\Scripts\Controllers\ShotController.cs" Line="27" Column="38" />
-      <File FileName="Assets\Scripts\Controllers\GameController.cs" Line="8" Column="62" />
-      <File FileName="Assets\Scripts\Controllers\ItemController.cs" Line="218" Column="20" />
-      <File FileName="Assets\Scripts\Collections\ItemsCollection.cs" Line="11" Column="2" />
+      <File FileName="Assets\Scripts\Controllers\GameController.cs" Line="71" Column="4" />
+      <File FileName="Assets\Scripts\IA\IA.cs" Line="21" Column="2" />
+      <File FileName="Assets\Scripts\Controllers\ItemController.cs" Line="237" Column="52" />
+      <File FileName="Assets\Scripts\Collections\ItemsCollection.cs" Line="42" Column="1" />
+      <File FileName="Assets\Scripts\Managers\ColorController.cs" Line="13" Column="65" />
+      <File FileName="Assets\Scripts\Controllers\ShotController.cs" Line="75" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Scripts" expanded="True">
-              <Node name="Collections" expanded="True">
-                <Node name="ItemsCollection.cs" selected="True" />
-              </Node>
-              <Node name="Controllers" expanded="True" />
-            </Node>
-          </Node>
-        </State>
+        <State expanded="True" />
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State>
-          <Value>map</Value>
-          <Value>map.Length</Value>
+          <Value>factor</Value>
+          <Value>nrj</Value>
+          <Value>nrjMax</Value>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\GameController.cs" line="102" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
