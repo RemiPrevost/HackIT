@@ -14,8 +14,24 @@ public class IA {
 		this.linesCollection = linesCollection;
 		this.map = map;
 
-		gameController.MakeAShootAtB (itemsCollection.GetItemController(2),itemsCollection.GetItemController(1));
-		gameController.MakeAShootAtB (itemsCollection.GetItemController(0),itemsCollection.GetItemController(2));
+		ItemController itemPlayer = new ItemController ();
+		ItemController itemEnemy = new ItemController ();
+		ItemController itemNeutral = new ItemController();
+
+		foreach (ItemController item in itemsCollection.GetAllItemsController()) {
+			if (item.owner == 0) {
+				itemNeutral = item;
+			}
+			else if (item.owner == 1) {
+				itemPlayer = item;
+			}
+			else {
+				itemEnemy = item;
+			}
+		}
+
+		gameController.MakeAShootAtB (itemPlayer,itemEnemy);
+		gameController.MakeAShootAtB (itemEnemy,itemNeutral);
 
 	}
 

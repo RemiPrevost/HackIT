@@ -14,6 +14,10 @@ public class LineController : MonoBehaviour {
 
 	/**********************************************************/
 	/********************* PUBLIC METHODS *********************/
+
+	void Start() {
+		Deactivate();
+	}
 	
 	public void SetId(int id) {
 		this.id = id;
@@ -59,14 +63,14 @@ public class LineController : MonoBehaviour {
 	 * Set the line active by changing its color
 	 */
 	public void Activate() {
-		gameObject.GetComponent<LineRenderer> ().SetColors(new Color (0.5f, 0.5f, 0.5f, 0.7f),new Color (0.5f, 0.5f, 0.5f, 0.7f));
+		gameObject.GetComponent<LineRenderer> ().SetColors(new Color (0.5f, 0.5f, 0.5f, 0.8f),new Color (0.5f, 0.5f, 0.5f, 0.8f));
 	}
 	
 	/**
 	 * Set the line inactive by changing its color
 	 */
 	public void Deactivate() {
-		gameObject.GetComponent<LineRenderer> ().SetColors(new Color (0.5f, 0.5f, 0.5f, 0.1f),new Color (0.5f, 0.5f, 0.5f, 0.1f));
+		gameObject.GetComponent<LineRenderer> ().SetColors(new Color (0.5f, 0.5f, 0.5f, 0.3f),new Color (0.5f, 0.5f, 0.5f, 0.3f));
 	}
 
 	/**********************************************************/
