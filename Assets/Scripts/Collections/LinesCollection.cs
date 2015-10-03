@@ -31,7 +31,7 @@ public class LinesCollection {
 
 		for (int i = 0; i < this.tabLines.Length; i++) {
 			for (int j = 0; j < this.tabLines.Length; j++) {
-				if (i > j) {
+				if (j > i) {
 					itemGameObjectI = itemsCollection.GetItemObject(i);
 					itemGameObjectJ = itemsCollection.GetItemObject(j);
 					lineObject = gameController.InstantiateLine();
