@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour {
 		linesCollection = new LinesCollection (itemsCollection);
 		map = new Map (itemsCollection.GetCollectionSize ());
 		this.dragDropManager.SendMessage ("SetLines", this.linesCollection);
+		referenceMatrix = new ReferenceMatrix()
 	}
 
 	void Update() {

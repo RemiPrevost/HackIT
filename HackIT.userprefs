@@ -1,25 +1,29 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Controllers\GameController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Collections\LinesCollection.cs">
     <Files>
-      <File FileName="Assets\Scripts\Controllers\GameController.cs" Line="124" Column="2" />
-      <File FileName="Assets\Scripts\IA\IA.cs" Line="13" Column="40" />
-      <File FileName="Assets\Scripts\Controllers\ItemController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Map.cs" Line="112" Column="1" />
+      <File FileName="Assets\Scripts\Controllers\GameController.cs" Line="37" Column="29" />
+      <File FileName="Assets\Scripts\IA\IA.cs" Line="51" Column="1" />
+      <File FileName="Assets\Scripts\Controllers\ItemController.cs" Line="41" Column="9" />
       <File FileName="Assets\Scripts\Controllers\LineController.cs" Line="15" Column="31" />
-      <File FileName="Assets\Scripts\Managers\DragDropManager.cs" Line="73" Column="14" />
-      <File FileName="Assets\Scripts\Collections\LinesCollection.cs" Line="57" Column="1" />
-      <File FileName="Assets\Scripts\Collections\ItemsCollection.cs" Line="22" Column="3" />
+      <File FileName="Assets\Scripts\Managers\DragDropManager.cs" Line="62" Column="1" />
+      <File FileName="Assets\Scripts\Collections\ItemsCollection.cs" Line="12" Column="2" />
+      <File FileName="Assets\Scripts\Managers\SelectionManager.cs" Line="36" Column="31" />
+      <File FileName="Assets\Scripts\Collections\LinesCollection.cs" Line="81" Column="80" />
+      <File FileName="Assets\Scripts\Utils\ReferenceMatrix.cs" Line="36" Column="25" />
+      <File FileName="Assets\Scripts\Utils\Indexes.cs" Line="11" Column="2" />
+      <File FileName="Assets\Scripts\Utils\ErrorManager.cs" Line="7" Column="15" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="Collections" expanded="True" />
-              <Node name="Controllers" expanded="True">
-                <Node name="GameController.cs" selected="True" />
+              <Node name="Collections" expanded="True">
+                <Node name="LinesCollection.cs" selected="True" />
               </Node>
-              <Node name="IA" expanded="True" />
+              <Node name="Controllers" expanded="True" />
               <Node name="Managers" expanded="True" />
               <Node name="Utils" expanded="True" />
             </Node>
@@ -34,15 +38,26 @@
           <Value>collectionSize</Value>
           <Value>linesCollection</Value>
           <Value>tabLines</Value>
+          <Value>i</Value>
+          <Value>lineController</Value>
+          <Value>tabItems</Value>
+          <Value>itemFrom</Value>
+          <Value>itemTo</Value>
+          <Value>itemsCollection</Value>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint enabled="false" file="C:\Users\Asus\Documents\Unity\HackIT\Assets\Scripts\Collections\LinesCollection.cs" line="30" />
+      <Breakpoint enabled="false" file="C:\Users\Asus\Documents\Unity\HackIT\Assets\Scripts\Collections\LinesCollection.cs" line="34" />
       <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\Collections\LinesCollection.cs" line="56" />
-      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\Controllers\GameController.cs" line="135" />
+      <Breakpoint file="C:\Users\Asus\Documents\Unity\HackIT\Assets\Scripts\Collections\LinesCollection.cs" line="61" />
+      <Breakpoint file="C:\Users\Asus\Documents\Unity\HackIT\Assets\Scripts\Managers\DragDropManager.cs" line="62" />
+      <Breakpoint file="C:\Users\Asus\Documents\Unity\HackIT\Assets\Scripts\Collections\ItemsCollection.cs" line="26" />
+      <Breakpoint file="C:\Users\Asus\Documents\Unity\HackIT\Assets\Scripts\Controllers\GameController.cs" line="72" />
+      <Breakpoint file="C:\Users\Asus\Documents\Unity\HackIT\Assets\Scripts\Controllers\GameController.cs" line="78" />
+      <Breakpoint file="C:\Users\Asus\Documents\Unity\HackIT\Assets\Scripts\Collections\LinesCollection.cs" line="81" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

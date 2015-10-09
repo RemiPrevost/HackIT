@@ -8,6 +8,7 @@ public class LinesCollection {
 	
 	/* The tab containing all the lines */
 	private LineController[] tabLines;
+	private ReferenceMatrix referenceMatrix;
 	private GameController gameController = GameController.getGameController();
 
 	/**********************************************************/
@@ -22,8 +23,11 @@ public class LinesCollection {
 		int collectionSize, position = 0;
 
 		if (itemsCollection == null) {
+			ErrorManager.DisplayErrorMessage("LineCollection: Cannot build LinesCollection from an empty ItemsCollection");
 			return;
 		}
+
+		referenceMatrix = new ReferenceMatrix (itemsCollection.GetCollectionSize ());
 
 		collectionSize = (itemsCollection.GetCollectionSize() * (itemsCollection.GetCollectionSize() - 1)) / 2;
 
@@ -74,7 +78,7 @@ public class LinesCollection {
 	}
 
 	public LineController GetLineControllerBetween(int A, int B) {
-		return this.tabLines[A + B - 1];
+		return this.tabLines[referenceMatrix.GetPositionFromCoord(new Indexes(A,B))];
 	}
 
 
