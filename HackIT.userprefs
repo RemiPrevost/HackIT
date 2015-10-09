@@ -1,12 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Controllers\GameController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Controllers\ItemController.cs" Line="242" Column="2" />
-      <File FileName="Assets\Scripts\Controllers\GameController.cs" Line="45" Column="26" />
-      <File FileName="Assets\Scripts\Controllers\LineController.cs" Line="79" Column="1" />
-      <File FileName="Assets\Scripts\IA\IA.cs" Line="15" Column="1" />
-      <File FileName="Assets\Scripts\Collections\LinesCollection.cs" Line="26" Column="4" />
+      <File FileName="Assets\Scripts\Controllers\GameController.cs" Line="124" Column="2" />
+      <File FileName="Assets\Scripts\IA\IA.cs" Line="13" Column="40" />
+      <File FileName="Assets\Scripts\Controllers\ItemController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Controllers\LineController.cs" Line="15" Column="31" />
+      <File FileName="Assets\Scripts\Managers\DragDropManager.cs" Line="73" Column="14" />
+      <File FileName="Assets\Scripts\Collections\LinesCollection.cs" Line="57" Column="1" />
+      <File FileName="Assets\Scripts\Collections\ItemsCollection.cs" Line="22" Column="3" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,6 +20,8 @@
                 <Node name="GameController.cs" selected="True" />
               </Node>
               <Node name="IA" expanded="True" />
+              <Node name="Managers" expanded="True" />
+              <Node name="Utils" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -27,22 +31,18 @@
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State>
-          <Value>factor</Value>
-          <Value>nrj</Value>
-          <Value>nrjMax</Value>
           <Value>collectionSize</Value>
-          <Value>i</Value>
-          <Value>j</Value>
+          <Value>linesCollection</Value>
+          <Value>tabLines</Value>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\Controllers\GameController.cs" line="83" />
-      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\Collections\LinesCollection.cs" line="55" />
-      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\Collections\LinesCollection.cs" line="52" />
-      <Breakpoint file="C:\Users\Asus\Documents\Unity\HackIT\Assets\Scripts\Collections\LinesCollection.cs" line="30" />
+      <Breakpoint enabled="false" file="C:\Users\Asus\Documents\Unity\HackIT\Assets\Scripts\Collections\LinesCollection.cs" line="30" />
+      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\Collections\LinesCollection.cs" line="56" />
+      <Breakpoint file="C:\Users\Public\Documents\Unity Projects\HackIT\Assets\Scripts\Controllers\GameController.cs" line="135" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

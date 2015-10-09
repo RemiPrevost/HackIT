@@ -19,7 +19,7 @@ public class LinesCollection {
 	public LinesCollection(ItemsCollection itemsCollection) {
 		GameObject lineObject, itemGameObjectI, itemGameObjectJ;
 		LineRenderer lineRenderer;
-		int collectionSize;
+		int collectionSize, position = 0;
 
 		if (itemsCollection == null) {
 			return;
@@ -29,8 +29,8 @@ public class LinesCollection {
 
 		this.tabLines = new LineController[collectionSize];
 
-		for (int i = 0; i < this.tabLines.Length; i++) {
-			for (int j = 0; j < this.tabLines.Length; j++) {
+		for (int i = 0; i < itemsCollection.GetCollectionSize(); i++) {
+			for (int j = 0; j < itemsCollection.GetCollectionSize(); j++) {
 				if (j > i) {
 					itemGameObjectI = itemsCollection.GetItemObject(i);
 					itemGameObjectJ = itemsCollection.GetItemObject(j);
@@ -41,14 +41,16 @@ public class LinesCollection {
 					lineRenderer.SetPosition(1, new Vector3(itemGameObjectJ.transform.position.x, 0, itemGameObjectJ.transform.position.z));
 					lineRenderer.SetWidth(0.1f, 0.1f);
 
-					tabLines[i+j-1] = lineObject.GetComponent<LineController>();
+					tabLines[position] = lineObject.GetComponent<LineController>();
 
-					tabLines[i+j-1].Deactivate();
-					tabLines[i+j-1].SetOwnerOut(j);
-					tabLines[i+j-1].SetOwnerIn(i);
-					tabLines[i+j-1].SetStartPoint(new Vector3(itemGameObjectI.transform.position.x, 0, itemGameObjectI.transform.position.z));
-					tabLines[i+j-1].SetEndPoint(new Vector3(itemGameObjectJ.transform.position.x, 0, itemGameObjectJ.transform.position.z));
-					tabLines[i+j-1].ComputeConstants();
+					tabLines[position].Deactivate();
+					tabLines[position].SetOwnerOut(j);
+					tabLines[position].SetOwnerIn(i);
+					tabLines[position].SetStartPoint(new Vector3(itemGameObjectI.transform.position.x, 0, itemGameObjectI.transform.position.z));
+					tabLines[position].SetEndPoint(new Vector3(itemGameObjectJ.transform.position.x, 0, itemGameObjectJ.transform.position.z));
+					tabLines[position].ComputeConstants();
+
+					position++;
 				}
 			}
 		}

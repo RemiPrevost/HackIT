@@ -6,8 +6,7 @@ public class GameController : MonoBehaviour {
 
 	/**********************************************************/
 	/*************** STATIC METHODS & VARIABLES ***************/
-
-
+	
 	public static GameController getGameController() {
 		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
 		GameController gameController = null;
@@ -23,7 +22,6 @@ public class GameController : MonoBehaviour {
 		return gameController;
 	}
 
-
 	/**********************************************************/
 	/*********************** ATTRIBUTES ***********************/
 
@@ -37,7 +35,6 @@ public class GameController : MonoBehaviour {
 	private Map map;
 	private IA ia;
 	private GameObject[] items;
-
 
 	void Start() {
 		itemsCollection = new ItemsCollection();
@@ -80,10 +77,11 @@ public class GameController : MonoBehaviour {
 		Vector3 fromPosition = itemFrom.gameObject.transform.position;
 		Vector3 toPosition = itemTo.gameObject.transform.position;
 		Vector3 relativePos = toPosition - fromPosition;
-		linesCollection.GetLineControllerBetween (itemFrom.GetId (), itemTo.GetId ()).Activate();
+        linesCollection.GetLineControllerBetween (itemFrom.GetId (), itemTo.GetId ()).Activate();
 		itemFrom.StartShootingAt (Quaternion.LookRotation(relativePos), itemTo.GetId());
 		map.AshootsAtB (itemFrom.GetId (), itemTo.GetId ());
 	}
+
 
 	public void onShotItem(ItemController itemShot, int shooter) {
 		itemShot.AlterNrjBy (1, shooter);

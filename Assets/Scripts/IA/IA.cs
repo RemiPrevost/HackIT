@@ -8,15 +8,19 @@ public class IA {
 	private Map map;
 	private GameController gameController = GameController.getGameController();
 
+	private List<ItemController> neutralList;
+	private List<ItemController> playerList;
+	private List<ItemController> enemyList;
+
 	public IA (ItemsCollection itemsCollection, LinesCollection linesCollection, Map map)
 	{
 		this.itemsCollection = itemsCollection;
 		this.linesCollection = linesCollection;
 		this.map = map;
 
-		ItemController itemPlayer = new ItemController ();
-		ItemController itemEnemy = new ItemController ();
-		ItemController itemNeutral = new ItemController();
+		ItemController itemPlayer = null;
+		ItemController itemEnemy = null;
+		ItemController itemNeutral = null;
 
 		foreach (ItemController item in itemsCollection.GetAllItemsController()) {
 			if (item.owner == 0) {
@@ -30,9 +34,15 @@ public class IA {
 			}
 		}
 
-		gameController.MakeAShootAtB (itemPlayer,itemEnemy);
-		gameController.MakeAShootAtB (itemEnemy,itemNeutral);
-
+        if (itemPlayer != null && itemEnemy != null)
+        {
+            gameController.MakeAShootAtB(itemPlayer, itemEnemy);
+        }
+		    
+        if (itemNeutral != null && itemEnemy != null)
+        {
+            gameController.MakeAShootAtB(itemEnemy, itemNeutral);
+        }
 	}
 
 		
